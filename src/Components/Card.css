@@ -1,0 +1,13 @@
+.body-grid .card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: solid 1px #7e7e7e3d;
+    border-radius: 12px;
+    
+  }
+  .body-grid .card img{
+    max-width: 185px;
+    max-height: 120px;
+  }

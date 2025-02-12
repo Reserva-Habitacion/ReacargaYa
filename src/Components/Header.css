@@ -1,0 +1,47 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    background-color: white;
+    width: 1280px;
+    margin-bottom: 30px;
+    color: black;
+  }
+  .header .img-logo{
+    width: 200px;
+    padding: 0 40px;
+  }
+  .header .img-logo img{
+    width: 200px;
+  }
+  .header .action-items{
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+  .header .action-items img{
+    width: 30px;
+    position: absolute;
+    right: 410px;
+    Z-INDEX: 20;
+  }
+  .header .action-items .country{
+    position: relative;
+    padding-left: 45px;
+  }
+  
+  .header .action-items h3{
+    font-size: 16px;
+  
+  }
+  .header .action-items select{
+    height: 40px;
+    color: black;
+    padding: 0 20px;
+    background-color: rgb(255, 255, 255);
+    border-color: hsl(0, 0%, 86%);
+    border-radius: 4px;
+    margin: 20px;
+  
+  }

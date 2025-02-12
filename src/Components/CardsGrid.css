@@ -1,0 +1,20 @@
+.body-grid{
+    color: black;
+    display: flex;
+    background: #f7f7f7;
+    width: 1280px;
+    height: 900px;
+    overflow: auto;
+    scrollbar-color: #71DAA5 #dbdbdb;
+  }
+  
+  .body-grid .cards-grid {
+    width: 100%;
+    display: grid;
+    grid-gap:30px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(100, 280px);
+    margin-inline: 45px;
+  }
+  
+  
