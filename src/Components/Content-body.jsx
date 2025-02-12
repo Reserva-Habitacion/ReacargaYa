@@ -3,12 +3,11 @@ import { useState } from "react";
 const ContentBody = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    // Función para manejar la entrada de los números
     const handleButtonClick = (value) => {
         if (value === "Borrar") {
-            setPhoneNumber((prev) => prev.slice(0, -1)); // Elimina el último número
+            setPhoneNumber((prev) => prev.slice(0, -1)); 
         } else {
-            setPhoneNumber((prev) => prev + value.toString()); // Agrega el número al input
+            setPhoneNumber((prev) => prev + value.toString()); 
         }
     };
 
@@ -26,7 +25,8 @@ const ContentBody = () => {
                                 type="text"
                                 name="PhoneNumber"
                                 placeholder="(000)-000-0000"
-                                value={phoneNumber}
+                                value={phoneNumber || ""}  siempre una cadena
+                                style={{ color: "black" }}
                                 readOnly
                             />
                         </div>
@@ -34,7 +34,6 @@ const ContentBody = () => {
 
                     <div className="keyboard">
                         <div className="keyboard-grid">
-                            {/* Generar botones del 1 al 9 y 0 dinámicamente */}
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0].map((num, index) => (
                                 <button 
                                     key={index} 
