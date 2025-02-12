@@ -44,4 +44,4 @@ const CardGrid =()=>{
     )
 }
 
-export default cardGrid
+export default CardGrid
