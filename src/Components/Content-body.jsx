@@ -1,4 +1,17 @@
+import { useState } from "react";
+
 const ContentBody = () => {
+    const [phoneNumber, setPhoneNumber] = useState("");
+
+    // Función para manejar la entrada de los números
+    const handleButtonClick = (value) => {
+        if (value === "Borrar") {
+            setPhoneNumber((prev) => prev.slice(0, -1)); // Elimina el último número
+        } else {
+            setPhoneNumber((prev) => prev + value.toString()); // Agrega el número al input
+        }
+    };
+
     return (
         <div className="content-body">
             <div className="left-case">
@@ -10,43 +23,43 @@ const ContentBody = () => {
                         </div>
                         <div className="input-number">
                             <input
-                                type="number"
-                                name="PhoneNumbre"
-                                placeholder="(000)-000-0000" />
+                                type="text"
+                                name="PhoneNumber"
+                                placeholder="(000)-000-0000"
+                                value={phoneNumber}
+                                readOnly
+                            />
                         </div>
                     </div>
 
                     <div className="keyboard">
                         <div className="keyboard-grid">
-                            <button className="grid-buttom" value={1}><h1>1</h1></button>
-                            <button className="grid-buttom" value={1}><h1>2</h1></button>
-                            <button className="grid-buttom" value={1}><h1>3</h1></button>
-                            <button className="grid-buttom" value={1}><h1>4</h1></button>
-                            <button className="grid-buttom" value={1}><h1>5</h1></button>
-                            <button className="grid-buttom" value={1}><h1>6</h1></button>
-                            <button className="grid-buttom" value={1}><h1>7</h1></button>
-                            <button className="grid-buttom" value={1}><h1>8</h1></button>
-                            <button className="grid-buttom" value={1}><h1>9</h1></button>
-                            <button className="grid-buttom borrar" value={1}><h1>Borrar</h1></button>
-                            <button className="grid-buttom" value={1}><h1>0</h1></button>
-                            <button className="grid-buttom" value={1}><h1>/</h1></button>
-                            
+                            {/* Generar botones del 1 al 9 y 0 dinámicamente */}
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0].map((num, index) => (
+                                <button 
+                                    key={index} 
+                                    className={`grid-buttom ${num === "Borrar" ? "borrar" : ""}`}
+                                    onClick={() => handleButtonClick(num)}
+                                >
+                                    <h1>{num}</h1>
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-                    <span>test
-
-                    </span>
+                    <span>test</span>
                 </div>
             </div>
             <div className="action-buttom">
-                <button className="submit-button"><h1>Realizar pago</h1></button>
+                <button className="submit-button">
+                    <h1>Realizar pago</h1>
+                </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ContentBody
+export default ContentBody;
