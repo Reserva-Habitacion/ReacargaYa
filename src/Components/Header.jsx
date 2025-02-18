@@ -1,16 +1,20 @@
-
 import countryData from "../data/countryData";
+import HeaderNav from "./Header-nav";
 
-function Header({ selectedCountry, setSelectedCountry }) {
-return (
-  
-<div className="header">
-    <div className="img-logo">
-    <img src="src/assets/Logo.png" alt="" />
-    </div>
+function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
+
+  console.log(selectedCard);
+
+  return (
+    <>
+    {selectedCard === null ?(
+    <div className="header">
+      <div className="img-logo">
+        <img src="src/assets/Logo.png" alt="Logo" />
+      </div>
       <div className="action-items">
-        <h3>Elige tu país!</h3>
-          <form>
+        <h3>{selectedCard ? `Seleccionaste: ${selectedCard}` : "Elige tu país!"}</h3>
+        <form>
           <img src={countryData[selectedCountry].flag} alt="Bandera" />
           <select
             className="country"
@@ -25,14 +29,19 @@ return (
             ))}
           </select>
         </form>
-          <select name="language" id="">
-            <option>Español</option>
-            <option>English</option>
-            <option>Creole</option>
-          </select>
+        <select name="language" id="">
+          <option>Español</option>
+          <option>English</option>
+          <option>Creole</option>
+        </select>
       </div>
     </div>
-    )
+
+    ):(
+        <HeaderNav /> 
+    )}
+    </>
+  );
 }
 
-export default Header
+export default Header;

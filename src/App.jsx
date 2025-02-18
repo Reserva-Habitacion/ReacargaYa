@@ -19,10 +19,20 @@ import Header from './Components/Header'
 
 function App() {
   const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
+  const [selectedCard, setSelectedCard] = useState(null);
   return (
     <>
-    <HeaderNav />
-      <CardGrid selectedCountry={selectedCountry} />
+      {/* <HeaderNav /> */}
+      <Header
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+        selectedCard={selectedCard} // Pasar `selectedCard` al Header
+      />
+      <CardGrid
+        selectedCountry={selectedCountry}
+        selectedCard={selectedCard} // Pasar `selectedCard` a CardGrid
+        setSelectedCard={setSelectedCard} // Permitir actualizar el estado
+      />
     </>
   )
 }
