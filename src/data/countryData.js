@@ -15,6 +15,7 @@ const countryData = {
       cards: [
         { imagen: "src/assets/digicel.jpg", nombre: "digicel" },
         { imagen: "src/assets/Natcom.png", nombre: "Natcom" }
+
       ]
     },
     "Venezuela": {

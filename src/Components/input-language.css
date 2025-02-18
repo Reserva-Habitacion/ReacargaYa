@@ -1,0 +1,17 @@
+.header .input-language{
+    display: flex;
+    height: 40px;
+    width: 120px;
+  }
+
+   .header .right-div select{
+     width: 140px;
+     padding-inline: 30px;
+     height: 40px;
+     color: black;
+     border: solid 1px;
+     background-color: rgb(255, 255, 255);
+     border-color: hsl(0, 0%, 86%);
+     border-radius: 4px;
+     margin: 0;
+   }

@@ -1,4 +1,6 @@
 import IcoBack from "../assets/ico-back"
+import InputLanguage from "./Input-language"
+
 
 function HeaderNav() {
   return (
@@ -12,15 +14,8 @@ function HeaderNav() {
       </div>
 
       <div className="right-div">
-        <form className="language">
-          <select name="language" id="">
-            <option>Español</option>
-            <option>English</option>
-            <option>Creole</option>
-          </select>
-        </form>
+        <InputLanguage />
       </div>
-
     </div>
   )
 }
