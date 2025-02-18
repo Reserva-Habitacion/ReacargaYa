@@ -1,4 +1,4 @@
-
+// import IcoLanguage from "../assets/ico-language"
 
 const InputLanguage = () => {
     return (

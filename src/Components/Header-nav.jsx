@@ -1,13 +1,16 @@
 import IcoBack from "../assets/ico-back"
 import InputLanguage from "./Input-language"
-
+import { useNavigate } from "react-router-dom";
 
 function HeaderNav() {
+  const navigate = useNavigate();
+  console.log("🚀 ~ HeaderNav ~ navigate:", navigate)
+  
   return (
 
     <div className="header">
-      <div className="left-div">
-        <IcoBack />
+      <div className="left-div" onClick={() => (window.location.href = "http://localhost:5173/")}>
+          <IcoBack />
       </div>
       <div className="tittle">
         <h2>Servicios Claro</h2>

@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import Card from './Card';
 import ContentBody from './Content-body';
 import countryData from "../data/countryData";
 
-const CardGrid = ({ selectedCountry }) => {
-  const [selectedCard, setSelectedCard] = useState(null);
-
+const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
   const handleCardClick = (nombre) => {
     setSelectedCard(nombre);
   };
 
   return (
     <div className="body-grid">
-      {selectedCard ? (
+      {selectedCard ? ( // Aquí se usa `selectedCard`, ahora recibido como prop
         <ContentBody nombre={selectedCard} />
       ) : (
         <div className="cards-grid">
@@ -20,7 +17,6 @@ const CardGrid = ({ selectedCountry }) => {
             <Card
               key={`${card.nombre}-${index}`}
               imagen={card.imagen}
-              // nombre={card.nombre}
               onClick={() => handleCardClick(card.nombre)}
             />
           ))}
