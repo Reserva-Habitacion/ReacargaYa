@@ -6,14 +6,19 @@ import './Components/CardsGrid.css'
 import './Components/Content-body.css'
 import Header from './Components/Header'
 import ContentBody from './Components/Content-body'
-import CardGrid from './Components/CardsGrid'
+
+
+
+
 
 function App() {
-  
   return (
     <>
+   
+    
       <Header />
-      <CardGrid />
+      <ContentBody />
+    
     </>
   )
 }

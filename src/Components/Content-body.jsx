@@ -33,8 +33,7 @@ const ContentBody = ({ nombre }) => {
             const cleanNumber = phoneNumber.replace(/\D/g, "");
             if (cleanNumber.length === 10) {
                 try {
-                    // const response = await fetch(`https://api.example.com/plan-info/${cleanNumber}`);
-                    // const data = await response.json();
+                  
                     setPlanInfo({ plan: "Plan 1", details: "Detalles del plan" });
                     console.log("Plan info:", data); // Puedes manejar esta info en el UI
                 } catch (error) {
