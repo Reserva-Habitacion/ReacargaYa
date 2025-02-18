@@ -1,0 +1,54 @@
+
+.pay-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.pay-page .info-transacion{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pay-page h1{
+    font-size: 40px;
+    color: #1b1b1b;
+    margin: 0;
+}
+.pay-page span{
+    font-size:34px;
+    color: #6f6f6f;
+    font-weight: 600;
+    margin-top: 32px;
+}
+.pay-page img {
+    width: 400px;
+    margin-top: 30px;
+}
+.pay-page .monto{
+    font-size: 63px;
+    font-weight: 200;
+}
+.pay-page h2{
+    font-size:24px;
+    color: #6f6f6f;
+    font-weight: 300;
+    margin: 0;
+}
+.pay-page h3{
+    font-size:36px;
+    color: #6f6f6f;
+    font-weight: 600;
+    margin: 0;
+}
+.pay-page .servicio-adquirido {
+    font-size:24px;
+    color: #6f6f6f;
+    font-weight: 400;
+    margin: 0;
+}
+.pay-page .servicio-adquirido .resaltado{
+    font-size: 24;
+    font-weight: 600;
+}
