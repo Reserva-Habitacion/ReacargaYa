@@ -20,15 +20,32 @@
     align-items: center;
     align-content: center;
   }
+ 
+  .header form{
+    display: flex;
+    height: 40px;
+    margin-left: 14px;
+    border: solid 1px;
+    border-color:hsl(0, 0%, 86%);
+    border-radius: 4px;
+  }
   .header .action-items img{
     width: 30px;
-    position: absolute;
-    right: 410px;
     Z-INDEX: 20;
+    object-fit: contain;
+    padding-left: 10px;
   }
+
   .header .action-items .country{
-    position: relative;
-    padding-left: 45px;
+    border: none;
+    margin: 0;
+    padding-left: 6px;
+  }
+  .header .action-items .country:focus{
+    outline: none;
+  }
+  .header .action-items .country:hover{
+    outline: none;
   }
   
   .header .action-items h3{

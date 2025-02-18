@@ -7,12 +7,14 @@ return (
     </div>
       <div className="action-items">
         <h3>Elige tu país!</h3>
+        <form>
         <img src="src/assets/RD.png" alt="" />
           <select className= "country" name="country" id="">
             <option>República Dominicana</option>
             <option>Haití</option>
             <option>Venezuela</option>
           </select>
+        </form>
           <select name="language" id="">
             <option>Español</option>
             <option>English</option>
