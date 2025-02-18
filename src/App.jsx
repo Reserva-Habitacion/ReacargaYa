@@ -5,7 +5,9 @@ import './Components/Footer.css'
 import './Components/CardsGrid.css'
 import './Components/Content-body.css'
 import Header from './Components/Header'
+import CardsGrid from './Components/CardsGrid'
 import ContentBody from './Components/Content-body'
+import Footer from './Components/Footer'
 
 
 
@@ -17,7 +19,8 @@ function App() {
    
     
       <Header />
-      <ContentBody />
+      <CardsGrid />
+      <Footer />
     
     </>
   )
