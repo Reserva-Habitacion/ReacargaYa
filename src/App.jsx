@@ -8,20 +8,20 @@ import './Components/Content-body.css'
 import HeaderNav from './Components/Header-nav'
 import CardsGrid from './Components/CardsGrid'
 import ContentBody from './Components/Content-body'
-import Footer from './Components/Footer'
+import CardGrid from './Components/CardsGrid'
+import { useState } from 'react'
 
 
 
 
 
 function App() {
+  const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
   return (
     <>
-   
-    
-      <HeaderNav />
-      <CardsGrid />
-    
+      <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
+      <CardGrid selectedCountry={selectedCountry} />
+
     </>
   )
 }

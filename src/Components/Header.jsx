@@ -1,4 +1,7 @@
-function Header() {
+
+import countryData from "../data/countryData";
+
+function Header({ selectedCountry, setSelectedCountry }) {
 return (
   
 <div className="header">
@@ -7,12 +10,19 @@ return (
     </div>
       <div className="action-items">
         <h3>Elige tu país!</h3>
-        <form>
-        <img src="src/assets/RD.png" alt="" />
-          <select className= "country" name="country" id="">
-            <option>República Dominicana</option>
-            <option>Haití</option>
-            <option>Venezuela</option>
+          <form>
+          <img src={countryData[selectedCountry].flag} alt="Bandera" />
+          <select
+            className="country"
+            name="country"
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
+            {Object.keys(countryData).map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
           </select>
         </form>
           <select name="language" id="">
