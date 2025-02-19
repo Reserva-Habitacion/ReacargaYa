@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import LeftRow from "../../assets/Left-row";
+import RightRow from "../../assets/Right-row";
 
 
 const plans = [
@@ -11,7 +13,7 @@ const plans = [
     { id: 7, name: "Libre 7 Días", price: 200 }
 ];
 
-const limit = 5;
+const limit = 6;
 
 export default function Plan() {
     const [page, setPage] = useState(1);
@@ -30,7 +32,7 @@ export default function Plan() {
 
     return (
         <div className="container">
-            <h3 className="title">Elija una opción</h3>
+            <h3 className="info-right-title">Elija una opción</h3>
 
             <div className="list">
                 {plans.slice(offset, offset + limit).map((plan) => (
@@ -50,12 +52,12 @@ export default function Plan() {
 
             <div className="pagination">
                 <button onClick={handlePrev} disabled={page === 1} className="btn">
-                    ⬅
-                    
+                    <LeftRow />
+
                 </button>
                 <span className="page-info">Página {page}/{totalPages}</span>
                 <button onClick={handleNext} disabled={page === totalPages} className="btn">
-                    ➡
+                    <RightRow />
                 </button>
             </div>
         </div>
