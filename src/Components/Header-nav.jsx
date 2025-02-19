@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function HeaderNav() {
   const navigate = useNavigate();
-  console.log("🚀 ~ HeaderNav ~ navigate:", navigate)
+  // console.log("🚀 ~ HeaderNav ~ navigate:", navigate)
   
   return (
 

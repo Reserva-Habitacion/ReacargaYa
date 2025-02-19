@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
+import Plan from "./plan/paln";
+import Recarga from "./plan/Recarga";
+
 
 const ContentBody = ({ nombre }) => {
+    const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [planInfo, setPlanInfo] = useState(null);
     const isPhoneComplete = phoneNumber.replace(/\D/g, "").length === 10;
@@ -33,7 +37,7 @@ const ContentBody = ({ nombre }) => {
             const cleanNumber = phoneNumber.replace(/\D/g, "");
             if (cleanNumber.length === 10) {
                 try {
-                  
+
                     setPlanInfo({ plan: "Plan 1", details: "Detalles del plan" });
                     console.log("Plan info:", data); // Puedes manejar esta info en el UI
                 } catch (error) {
@@ -83,15 +87,35 @@ const ContentBody = ({ nombre }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-                    {planInfo && (
+                    {/* {planInfo && (
                         <>
-                            {/* Aquí puedes mostrar la info del plan  hacer componente*/}
-                            <div className="plan-info">
-                                <h2>Plan: {planInfo.plan}</h2>
-                                <p>Detalles: {planInfo.details}</p>
-                            </div>
+
+
                         </>
-                    )}
+                    )} */}
+                    <div className="plan-info">
+                        {/* Contenedor de botones */}
+                        <div className="tabs-container">
+                            <button
+                                className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
+                                onClick={() => setActiveTab("planes")}
+                            >
+                                Planes
+                            </button>
+                            <button
+                                className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
+                                onClick={() => setActiveTab("recargas")}
+                            >
+                                Recargas
+                            </button>
+                        </div>
+
+                        {/* Contenido de los tabs */}
+                        <div className="tab-content">
+                            {activeTab === "planes" ? <Plan /> : <Recarga />}
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div className="action-buttom">
