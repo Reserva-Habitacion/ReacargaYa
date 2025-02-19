@@ -19,6 +19,7 @@
     display: flex;
     align-items: center;
     align-content: center;
+    height: 94px;
   }
  
   .header form{

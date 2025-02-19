@@ -14,6 +14,7 @@ import ContentBody from './Components/Content-body'
 import CardGrid from './Components/CardsGrid'
 import { useState } from 'react'
 import Header from './Components/Header'
+import Footer from './Components/Footer'
 import DepositarBilletes from './Components/Depositar-billetes'
 
 
@@ -31,11 +32,13 @@ function App() {
         setSelectedCountry={setSelectedCountry}
         selectedCard={selectedCard} // Pasar `selectedCard` al Header
       />
+      
       <CardGrid
         selectedCountry={selectedCountry}
         selectedCard={selectedCard} // Pasar `selectedCard` a CardGrid
         setSelectedCard={setSelectedCard} // Permitir actualizar el estado
       />
+      <Footer />
     </>
   )
 }
