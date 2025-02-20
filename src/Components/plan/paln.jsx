@@ -49,7 +49,7 @@ export default function Plan() {
                     </label>
                 ))}
             </div>
-
+                  {/* Pagination aqui */}
             <div className="pagination">
                 <button onClick={handlePrev} disabled={page === 1} className="btn">
                     <LeftRow />
