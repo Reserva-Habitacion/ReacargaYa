@@ -16,7 +16,7 @@ import { useState } from 'react'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 import DepositarBilletes from './Components/Depositar-billetes'
-
+import { Routes, Route } from "react-router-dom";
 
 
 
@@ -27,18 +27,14 @@ function App() {
   return (
     <>
       {/* <HeaderNav /> */}
-      <Header
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-        selectedCard={selectedCard} // Pasar `selectedCard` al Header
-      />
-      
-      <CardGrid
-        selectedCountry={selectedCountry}
-        selectedCard={selectedCard} // Pasar `selectedCard` a CardGrid
-        setSelectedCard={setSelectedCard} // Permitir actualizar el estado
-      />
-      <Footer />
+      <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCard={selectedCard} />
+      <Routes>
+        <Route path="/" element={<CardsGrid selectedCountry={selectedCountry} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />} />
+        <Route path="/ingresar-numero" element={<ContentBody />} />
+        <Route path="/billetes" element={<DepositarBilletes />} />
+      </Routes>
+
+      {/* <Footer /> */}
     </>
   )
 }

@@ -1,35 +1,44 @@
 import { useState, useEffect } from "react";
 import Plan from "./plan/paln";
 import Recarga from "./plan/Recarga";
-
+import { useNavigate } from "react-router-dom";
 
 const ContentBody = ({ nombre }) => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [planInfo, setPlanInfo] = useState(null);
     const isPhoneComplete = phoneNumber.replace(/\D/g, "").length === 10;
 
     const formatPhoneNumber = (value) => {
-        const cleaned = value.replace(/\D/g, "");
-        let formattedNumber = "";
-
-        if (cleaned.length > 0) formattedNumber += `(${cleaned.slice(0, 3)}`;
-        if (cleaned.length >= 4) formattedNumber += `)-${cleaned.slice(3, 6)}`;
-        if (cleaned.length >= 7) formattedNumber += `-${cleaned.slice(6, 10)}`;
-
-        return formattedNumber;
+        const cleaned = value.replace(/\D/g, ""); // Elimina caracteres no numéricos
+    
+        if (cleaned.length <= 3) return cleaned; 
+        if (cleaned.length <= 6) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+        
+        // Después del octavo dígito, se aplican los paréntesis
+        if (cleaned.length > 6) return `(${cleaned.slice(0, 3)})-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    
+        return cleaned.slice(0, 10); // Asegura que no pase de 10 caracteres
     };
+
+    const handleClick = () => {
+        navigate("/billetes")
+    }
 
     const handleButtonClick = (value) => {
         setPhoneNumber((prev) => {
-            if (value === "Borrar") {
-                return formatPhoneNumber(prev.slice(0, -1));
+            if (value === "BorrarTodo") {
+                return formatPhoneNumber(prev.slice(0, -1)); // Elimina un número
+            } else if (value === "Borrar") {
+                return ""; // Borra todo el número
             } else if (prev.replace(/\D/g, "").length < 10) {
                 return formatPhoneNumber(prev + value.toString());
             }
             return prev;
         });
     };
+
 
     useEffect(() => {
         //aqui se hace la peticion a la api
@@ -69,30 +78,37 @@ const ContentBody = ({ nombre }) => {
                             />
                         </div>
                     </div>
-
                     <div className="keyboard">
                         <div className="keyboard-grid">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0].map((num, index) => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0, "BorrarTodo"].map((num, index) => (
                                 <button
                                     key={index}
-                                    className={`grid-buttom ${num === "Borrar" ? "borrar" : ""}`}
+                                    className={`grid-buttom ${num === "Borrar"  ? "borrar" : ""}`}
                                     onClick={() => handleButtonClick(num)}
                                 >
-                                    <h1>{num}</h1>
+                                    {num === "BorrarTodo" ? (
+                                       <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       viewBox="0 0 24 24"
+                                       width="40"
+                                       height="40"
+                                       fill="currentColor"
+                                   >
+                                       <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z"/>
+                                   </svg>
+                                    ) : (
+                                        <h1>{num}</h1>
+                                    )}
                                 </button>
                             ))}
                         </div>
                     </div>
+
+
                 </div>
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-                    {/* {planInfo && (
-                        <>
-
-
-                        </>
-                    )} */}
                     <div className="plan-info">
                         {/* Contenedor de botones */}
                         <div className="tabs-container">
@@ -119,7 +135,7 @@ const ContentBody = ({ nombre }) => {
                 </div>
             </div>
             <div className="action-buttom">
-                <button className="submit-button" disabled={!isPhoneComplete} style={{
+                <button onClick={handleClick} className="submit-button" disabled={!isPhoneComplete} style={{
                     backgroundColor: isPhoneComplete ? "#30D99B" : "#ccc",
                     cursor: isPhoneComplete ? "pointer" : "not-allowed",
                     color: isPhoneComplete ? "white" : "#999999"
