@@ -16,7 +16,7 @@ import { useState } from 'react'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 import DepositarBilletes from './Components/Depositar-billetes'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,useLocation } from "react-router-dom";
 
 
 
@@ -24,6 +24,7 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
   const [selectedCard, setSelectedCard] = useState(null);
+  const location = useLocation();
   return (
     <>
       {/* <HeaderNav /> */}
@@ -34,7 +35,7 @@ function App() {
         <Route path="/billetes" element={<DepositarBilletes />} />
       </Routes>
 
-      {/* <Footer /> */}
+      {location.pathname !== "/ingresar-numero" && location.pathname !== "/billetes" && <Footer />}
     </>
   )
 }

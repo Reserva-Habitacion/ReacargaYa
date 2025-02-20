@@ -1,27 +1,26 @@
 import Card from './Card';
 import ContentBody from './Content-body';
 import countryData from "../data/countryData";
+import { useNavigate } from "react-router-dom";
 
 const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
-  const handleCardClick = (nombre) => {
+  const navigate = useNavigate();
+    const handleCardClick = (nombre) => {
     setSelectedCard(nombre);
+    navigate("/ingresar-numero"); // Cambia la ruta
   };
 
   return (
     <div className="body-grid">
-      {selectedCard ? ( // Aquí se usa `selectedCard`, ahora recibido como prop
-        <ContentBody nombre={selectedCard} />
-      ) : (
-        <div className="cards-grid">
-          {countryData[selectedCountry].cards.map((card, index) => (
-            <Card
-              key={`${card.nombre}-${index}`}
-              imagen={card.imagen}
-              onClick={() => handleCardClick(card.nombre)}
-            />
-          ))}
-        </div>
-      )}
+      <div className="cards-grid">
+        {countryData[selectedCountry].cards.map((card, index) => (
+          <Card
+            key={`${card.nombre}-${index}`}
+            imagen={card.imagen}
+            onClick={() => handleCardClick(card.nombre)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
