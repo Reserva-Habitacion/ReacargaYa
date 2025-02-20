@@ -25,7 +25,7 @@ export default function Recarga() {
 
   return (
     <div className="container">
-      <h3>Elija una opción</h3>
+      <h3 className="info-right-title">Elija una opción</h3>
 
       {/* Grid de tarjetas */}
       <div className="grid">
@@ -47,7 +47,7 @@ export default function Recarga() {
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
         >
-           ⬅
+          ⬅
         </button>
         <span>Página {page}/{Math.ceil(data.length / limit)}</span>
         <button
@@ -55,7 +55,7 @@ export default function Recarga() {
           disabled={offset + limit >= data.length}
           onClick={() => setPage(page + 1)}
         >
-            ➡
+          ➡
         </button>
       </div>
     </div>
