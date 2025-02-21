@@ -16,9 +16,14 @@ const plans = [
 
 const limit = 6;
 
-export default function Plan() {
+export default function Plan({ onSelect }) {
     const [page, setPage] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState(null);
+
+    const handleSelect = (planId) => {
+        setSelectedPlan(planId);
+        onSelect(planId); 
+      };
 
     const offset = (page - 1) * limit;
     const totalPages = Math.ceil(plans.length / limit);
@@ -36,7 +41,7 @@ export default function Plan() {
                             name="plan"
                             className="radio"
                             checked={selectedPlan === plan.id}
-                            onChange={() => setSelectedPlan(plan.id)}
+                            onChange={() => handleSelect(plan.id)}
                         />
                         <span className="text">{plan.name}</span>
                         <span className="price">${plan.price}</span>

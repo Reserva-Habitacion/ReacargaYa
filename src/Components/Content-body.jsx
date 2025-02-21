@@ -8,6 +8,8 @@ const ContentBody = ({ nombre }) => {
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [planInfo, setPlanInfo] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(null); // Estado para plan o recarga seleccionados
+    console.log("🚀 ~ ContentBody ~ selectedOption:", selectedOption)
     const isPhoneComplete = phoneNumber.replace(/\D/g, "").length === 10;
 
     const formatPhoneNumber = (value) => {
@@ -16,15 +18,14 @@ const ContentBody = ({ nombre }) => {
         if (cleaned.length <= 3) return cleaned; 
         if (cleaned.length <= 6) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
         
-        // Después del octavo dígito, se aplican los paréntesis
         if (cleaned.length > 6) return `(${cleaned.slice(0, 3)})-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
     
         return cleaned.slice(0, 10); // Asegura que no pase de 10 caracteres
     };
 
     const handleClick = () => {
-        navigate("/billetes")
-    }
+        navigate("/billetes");
+    };
 
     const handleButtonClick = (value) => {
         setPhoneNumber((prev) => {
@@ -39,25 +40,22 @@ const ContentBody = ({ nombre }) => {
         });
     };
 
-
     useEffect(() => {
-        //aqui se hace la peticion a la api
         const fetchPlanInfo = async () => {
             const cleanNumber = phoneNumber.replace(/\D/g, "");
             if (cleanNumber.length === 10) {
                 try {
-
                     setPlanInfo({ plan: "Plan 1", details: "Detalles del plan" });
-                    console.log("Plan info:", data); // Puedes manejar esta info en el UI
+                    console.log("Plan info:", planInfo); // Usa la info en la UI
                 } catch (error) {
-                    // console.error("Error fetching plan info:", error);
+                    console.error("Error fetching plan info:", error);
                 }
             }
         };
 
         fetchPlanInfo();
     }, [phoneNumber]);
-    console.log("phoneNumber", planInfo);
+
     return (
         <div className="content-body">
             <div className="left-case">
@@ -83,19 +81,19 @@ const ContentBody = ({ nombre }) => {
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0, "BorrarTodo"].map((num, index) => (
                                 <button
                                     key={index}
-                                    className={`grid-buttom ${num === "Borrar"  ? "borrar" : ""}`}
+                                    className={`grid-buttom ${num === "Borrar" ? "borrar" : ""}`}
                                     onClick={() => handleButtonClick(num)}
                                 >
                                     {num === "BorrarTodo" ? (
-                                       <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       viewBox="0 0 24 24"
-                                       width="40"
-                                       height="40"
-                                       fill="currentColor"
-                                   >
-                                       <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z"/>
-                                   </svg>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="40"
+                                            height="40"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z"/>
+                                        </svg>
                                     ) : (
                                         <h1>{num}</h1>
                                     )}
@@ -103,14 +101,11 @@ const ContentBody = ({ nombre }) => {
                             ))}
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <div className="rigth-case">
                 <div className="option-case">
                     <div className="plan-info">
-                        {/* Contenedor de botones */}
                         <div className="tabs-container">
                             <button
                                 className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
@@ -126,20 +121,27 @@ const ContentBody = ({ nombre }) => {
                             </button>
                         </div>
 
-                        {/* Contenido de los tabs */}
                         <div className="tab-content">
-                            {activeTab === "planes" ? <Plan /> : <Recarga />}
+                            {activeTab === "planes" ? (
+                                <Plan onSelect={setSelectedOption} />
+                            ) : (
+                                <Recarga onSelect={setSelectedOption} />
+                            )}
                         </div>
                     </div>
-
                 </div>
             </div>
             <div className="action-buttom">
-                <button onClick={handleClick} className="submit-button" disabled={!isPhoneComplete} style={{
-                    backgroundColor: isPhoneComplete ? "#30D99B" : "#ccc",
-                    cursor: isPhoneComplete ? "pointer" : "not-allowed",
-                    color: isPhoneComplete ? "white" : "#999999"
-                }}>
+                <button
+                    onClick={handleClick}
+                    className="submit-button"
+                    disabled={!isPhoneComplete || !selectedOption}
+                    style={{
+                        backgroundColor: isPhoneComplete && selectedOption ? "#30D99B" : "#ccc",
+                        cursor: isPhoneComplete && selectedOption ? "pointer" : "not-allowed",
+                        color: isPhoneComplete && selectedOption ? "white" : "#999999"
+                    }}
+                >
                     <h1>Realizar pago</h1>
                 </button>
             </div>

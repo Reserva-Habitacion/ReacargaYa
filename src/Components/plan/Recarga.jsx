@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import Pagination from "./Pagination";
 
 
-export default function Recarga() {
+export default function Recarga({ onSelect }) {
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
+
+  const handleSelect = (itemId) => {
+    setSelected(itemId);
+    onSelect(itemId); // Actualiza el estado en ContentBody
+  };
 
   const limit = 6; // Número de elementos por página
   const data = [
@@ -35,7 +40,7 @@ export default function Recarga() {
           <button
             key={item.id}
             className={`cardRecarga ${selected === item.id ? "selected" : ""}`}
-            onClick={() => setSelected(item.id)}
+            onClick={() => handleSelect(item.id)}
           >
             RD${item.price}
           </button>
