@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LeftRow from "../../assets/Left-row";
 import RightRow from "../../assets/Right-row";
+import Pagination from "./Pagination";
 
 
 const plans = [
@@ -21,15 +22,6 @@ export default function Plan() {
 
     const offset = (page - 1) * limit;
     const totalPages = Math.ceil(plans.length / limit);
-
-    const handlePrev = () => {
-        if (page > 1) setPage(page - 1);
-    };
-
-    const handleNext = () => {
-        if (page < totalPages) setPage(page + 1);
-    };
-
     return (
         <div className="container">
             <h3 className="info-right-title">Elija una opción</h3>
@@ -50,16 +42,7 @@ export default function Plan() {
                 ))}
             </div>
                   {/* Pagination aqui */}
-            <div className="pagination">
-                <button onClick={handlePrev} disabled={page === 1} className="btn">
-                    <LeftRow />
-
-                </button>
-                <span className="page-info">Página {page}/{totalPages}</span>
-                <button onClick={handleNext} disabled={page === totalPages} className="btn">
-                    <RightRow />
-                </button>
-            </div>
+                  <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
         </div>
     );
 }

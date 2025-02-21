@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Plan from "./plan/paln";
+import Plan from "./plan/plan";
 import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 
