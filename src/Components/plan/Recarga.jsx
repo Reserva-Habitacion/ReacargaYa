@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import Pagination from "./Pagination";
 
 
-export default function Recarga() {
+export default function Recarga({ onSelect }) {
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
+
+  const handleSelect = (itemId) => {
+    setSelected(itemId);
+    onSelect(itemId); // Actualiza el estado en ContentBody
+  };
 
   const limit = 6; // Número de elementos por página
   const data = [
@@ -20,6 +26,7 @@ export default function Recarga() {
   ];
 
   // Calcular el offset y obtener los datos de la página actual
+  const totalPages = Math.ceil(data.length / limit);
   const offset = (page - 1) * limit;
   const paginatedData = data.slice(offset, offset + limit);
 
@@ -33,7 +40,7 @@ export default function Recarga() {
           <button
             key={item.id}
             className={`cardRecarga ${selected === item.id ? "selected" : ""}`}
-            onClick={() => setSelected(item.id)}
+            onClick={() => handleSelect(item.id)}
           >
             RD${item.price}
           </button>
@@ -41,23 +48,7 @@ export default function Recarga() {
       </div>
 
       {/* Paginación */}
-      <div className="pagination">
-        <button
-          className="nav-btn"
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-        >
-          ⬅
-        </button>
-        <span>Página {page}/{Math.ceil(data.length / limit)}</span>
-        <button
-          className="nav-btn"
-          disabled={offset + limit >= data.length}
-          onClick={() => setPage(page + 1)}
-        >
-          ➡
-        </button>
-      </div>
+      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );
 }
