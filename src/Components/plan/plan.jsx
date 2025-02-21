@@ -22,6 +22,8 @@ export default function Plan() {
 
     const offset = (page - 1) * limit;
     const totalPages = Math.ceil(plans.length / limit);
+
+    
     return (
         <div className="container">
             <h3 className="info-right-title">Elija una opción</h3>

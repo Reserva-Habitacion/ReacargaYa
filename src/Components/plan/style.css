@@ -87,6 +87,11 @@
    
 }
 
+.item.selected {
+    background-color: #30D99B; /* Color de fondo cuando esté seleccionado */
+    border: 2px solid #30D99B; /* Borde verde para resaltar */
+  }
+
 /* Efecto hover */
 .item:hover {
     background-color: #30D99B;
