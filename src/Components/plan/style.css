@@ -26,6 +26,7 @@
 .tab-button.active {
 
     font-weight: bold;
+    outline: none;
     border-bottom:  4px solid #6fd6a4;
 }
 
