@@ -1,3 +1,8 @@
+import instagram from '../assets/instagram.png'; // Subir un nivel si es necesario
+import facebook from '../assets/facebook.png';
+import youtube from '../assets/youtube.png';
+import tiktok from '../assets/tiktok.png';
+
 function Footer() {
   return (
     <div className="footer">
@@ -15,16 +20,14 @@ function Footer() {
       <div className="Social-media">
         <h3>Recarga-Ya</h3>
         <div className="social-icon">
-          <img className="social-media-icon" src="src/assets/instagram.png" alt="facebook" />
-          <img className="social-media-icon" src="src/assets/facebook.png" alt="facebook" />
-          <img className="social-media-icon" src="src/assets/youtube.png" alt="facebook" />
-          <img className="social-media-icon" src="src/assets/tiktok.png" alt="facebook" />
-          <div className="social-icons">
-          </div>
+          <img className="social-media-icon" src={instagram} alt="Instagram" />
+          <img className="social-media-icon" src={facebook} alt="Facebook" />
+          <img className="social-media-icon" src={youtube} alt="YouTube" />
+          <img className="social-media-icon" src={tiktok} alt="TikTok" />
         </div>
       </div>
     </div>
   )
 }
 
-export default Footer
+export default Footer;
