@@ -11,7 +11,7 @@ const countryData = {
   "República Dominicana": {
     flag: rdFlag,
     cards: [
-      { imagen: "https://upload.wikimedia.org/wikipedia/commons/9/99/Logo_de_Claro.svg", nombre: "Claro" },
+      { imagen: haitiFlag, nombre: "Claro" },
       { imagen: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Altice_logo_%28new%29.png", nombre: "Altice" },
       { imagen: "https://logos-world.net/wp-content/uploads/2021/09/Orange-Emblem.png", nombre: "Orange" },
       { imagen: "https://upload.wikimedia.org/wikipedia/commons/9/99/Logo_de_Claro.svg", nombre: "Claro" },
