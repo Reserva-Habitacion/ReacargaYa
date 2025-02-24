@@ -10,6 +10,7 @@ export default function Confirmation() {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate("/"); 
+            window.location.reload();
         }, 15000);
 
         return () => clearTimeout(timer); 
