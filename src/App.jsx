@@ -17,6 +17,7 @@ import Header from './Components/Header'
 import Footer from './Components/Footer'
 import DepositarBilletes from './Components/Depositar-billetes'
 import { Routes, Route,useLocation } from "react-router-dom";
+import Confirmation from './Components/confirm/confirmation'
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<CardsGrid selectedCountry={selectedCountry} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />} />
         <Route path="/ingresar-numero" element={<ContentBody />} />
         <Route path="/billetes" element={<DepositarBilletes />} />
+        <Route path="/confirmacion" element={<Confirmation />} />
       </Routes>
 
       {location.pathname !== "/ingresar-numero" && location.pathname !== "/billetes" && <Footer />}

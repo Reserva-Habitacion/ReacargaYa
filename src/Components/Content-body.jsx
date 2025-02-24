@@ -2,29 +2,33 @@ import { useState, useEffect } from "react";
 import Plan from "./plan/plan";
 import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
+import DepositarBilletes from "./Depositar-billetes";
 
 const ContentBody = ({ nombre }) => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [planInfo, setPlanInfo] = useState(null);
-    const [selectedOption, setSelectedOption] = useState(null); // Estado para plan o recarga seleccionados
-    console.log("🚀 ~ ContentBody ~ selectedOption:", selectedOption)
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [nameOption, setNameOption] = useState(null);
+    const [priceOption, setPriceOption] = useState(null);
+    const [showDepositar, setShowDepositar] = useState(false);
+
     const isPhoneComplete = phoneNumber.replace(/\D/g, "").length === 10;
 
     const formatPhoneNumber = (value) => {
-        const cleaned = value.replace(/\D/g, ""); // Elimina caracteres no numéricos
-    
-        if (cleaned.length <= 3) return cleaned; 
+        const cleaned = value.replace(/\D/g, "");
+        if (cleaned.length <= 3) return cleaned;
         if (cleaned.length <= 6) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
-        
         if (cleaned.length > 6) return `(${cleaned.slice(0, 3)})-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
-    
-        return cleaned.slice(0, 10); // Asegura que no pase de 10 caracteres
+        return cleaned.slice(0, 10);
     };
 
     const handleClick = () => {
-        navigate("/billetes");
+        setShowDepositar(true);  // Establecer showDepositar a true
+        navigate("/billetes",{
+            state: { phoneNumber: phoneNumber, selectedOption: selectedOption, nameOption: nameOption, priceOption: priceOption }
+        });
     };
 
     const handleButtonClick = (value) => {
@@ -46,7 +50,6 @@ const ContentBody = ({ nombre }) => {
             if (cleanNumber.length === 10) {
                 try {
                     setPlanInfo({ plan: "Plan 1", details: "Detalles del plan" });
-                    console.log("Plan info:", planInfo); // Usa la info en la UI
                 } catch (error) {
                     console.error("Error fetching plan info:", error);
                 }
@@ -92,7 +95,7 @@ const ContentBody = ({ nombre }) => {
                                             height="40"
                                             fill="currentColor"
                                         >
-                                            <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z"/>
+                                            <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z" />
                                         </svg>
                                     ) : (
                                         <h1>{num}</h1>
@@ -123,14 +126,22 @@ const ContentBody = ({ nombre }) => {
 
                         <div className="tab-content">
                             {activeTab === "planes" ? (
-                                <Plan onSelect={setSelectedOption} />
+                                <Plan onSelect={(option, name, price) => {
+                                    setSelectedOption(option);
+                                    setNameOption(name);
+                                    setPriceOption(price);
+                                }} />
                             ) : (
-                                <Recarga onSelect={setSelectedOption} />
+                                <Recarga onSelect={(option, price) => {
+                                    setSelectedOption(option);
+                                    setPriceOption(price);
+                                }} />
                             )}
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className="action-buttom">
                 <button
                     onClick={handleClick}
@@ -144,6 +155,14 @@ const ContentBody = ({ nombre }) => {
                 >
                     <h1>Realizar pago</h1>
                 </button>
+                {showDepositar && (
+                    <DepositarBilletes
+                        selectedOption={selectedOption}
+                        nameOption={nameOption}
+                        priceOption={priceOption}
+                        setPhoneNumber={phoneNumber}
+                    />
+                )}
             </div>
         </div>
     );
