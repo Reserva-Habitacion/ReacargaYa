@@ -26,6 +26,7 @@
 }
 .content-body .left-case .left-case-info .keyboard{
     width: 88%;
+    height: 90%;
     margin: auto;
 }
 .content-body .left-case .screen{
@@ -55,6 +56,7 @@
     border: solid 2px #71DAA5;
     border-radius: 16px;
     margin-top: 20px;
+    outline: none;
 }
 
 .content-body .left-case .keyboard-grid{
