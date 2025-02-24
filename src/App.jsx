@@ -26,10 +26,19 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
   const [selectedCard, setSelectedCard] = useState(null);
   const location = useLocation();
+  const hideHeaderFooter = location.pathname === "/confirmacion";
+
   return (
     <>
       {/* <HeaderNav /> */}
-      <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCard={selectedCard} />
+      {!hideHeaderFooter && (
+        <Header 
+          selectedCountry={selectedCountry} 
+          setSelectedCountry={setSelectedCountry} 
+          selectedCard={selectedCard} 
+        />
+      )}
+      {/* <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCard={selectedCard} /> */}
       <Routes>
         <Route path="/" element={<CardsGrid selectedCountry={selectedCountry} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />} />
         <Route path="/ingresar-numero" element={<ContentBody />} />
@@ -37,7 +46,8 @@ function App() {
         <Route path="/confirmacion" element={<Confirmation />} />
       </Routes>
 
-      {location.pathname !== "/ingresar-numero" && location.pathname !== "/billetes" && <Footer />}
+      {location.pathname !== "/ingresar-numero" && location.pathname !== "/billetes" && location.pathname !== "/confirmacion" && <Footer />}
+      
     </>
   )
 }
