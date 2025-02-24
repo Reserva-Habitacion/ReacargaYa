@@ -89,7 +89,7 @@ const ContentBody = ({ nombre }) => {
                                     onClick={() => handleButtonClick(num)}
                                 >
                                     {num === "BorrarTodo" ? (
-                                        <IcoDelete/>
+                                      <IcoDelete/>
                                     ) : (
                                         <h1>{num}</h1>
                                     )}
