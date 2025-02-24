@@ -3,6 +3,7 @@ import Plan from "./plan/plan";
 import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
+import IcoDelete from "../assets/icoDelete";
 
 const ContentBody = ({ nombre }) => {
     const navigate = useNavigate();
@@ -88,15 +89,7 @@ const ContentBody = ({ nombre }) => {
                                     onClick={() => handleButtonClick(num)}
                                 >
                                     {num === "BorrarTodo" ? (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            width="40"
-                                            height="40"
-                                            fill="currentColor"
-                                        >
-                                            <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z" />
-                                        </svg>
+                                        <IcoDelete/>
                                     ) : (
                                         <h1>{num}</h1>
                                     )}
