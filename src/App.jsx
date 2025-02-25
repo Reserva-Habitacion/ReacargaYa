@@ -20,25 +20,27 @@ import { Routes, Route,useLocation } from "react-router-dom";
 import Confirmation from './Components/confirm/confirmation'
 
 
-
-
 function App() {
   const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
   const [selectedCard, setSelectedCard] = useState(null);
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === "/confirmacion";
+  
+  const hideHeader = location.pathname === "/confirmacion" || location.pathname === "/ingresar-numero"|| location.pathname === "/billetes";
 
   return (
     <>
-      {/* <HeaderNav /> */}
-      {!hideHeaderFooter && (
+      
+      {location.pathname === "/ingresar-numero" && <HeaderNav />}
+      {location.pathname === "/billetes" && <HeaderNav />}
+     
+      {!hideHeader && (
         <Header 
           selectedCountry={selectedCountry} 
           setSelectedCountry={setSelectedCountry} 
           selectedCard={selectedCard} 
         />
       )}
-      {/* <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCard={selectedCard} /> */}
+
       <Routes>
         <Route path="/" element={<CardsGrid selectedCountry={selectedCountry} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />} />
         <Route path="/ingresar-numero" element={<ContentBody />} />
@@ -46,10 +48,10 @@ function App() {
         <Route path="/confirmacion" element={<Confirmation />} />
       </Routes>
 
-      {location.pathname !== "/ingresar-numero" && location.pathname !== "/billetes" && location.pathname !== "/confirmacion" && <Footer />}
-      
+      {/* Mostrar Footer excepto en /ingresar-numero, /billetes y /confirmacion */}
+      {!["/ingresar-numero", "/billetes", "/confirmacion"].includes(location.pathname) && <Footer />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

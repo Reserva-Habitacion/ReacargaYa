@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 
 function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
 
-  console.log(selectedCard);
+  // console.log(selectedCard);
 
   return (
     <>
