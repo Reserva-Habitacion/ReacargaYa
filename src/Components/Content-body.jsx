@@ -4,6 +4,7 @@ import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
 import IcoDelete from "../assets/icoDelete";
+import InfoAlert from "../assets/InfoAlert";
 
 const ContentBody = ({ nombre }) => {
     const navigate = useNavigate();
@@ -101,6 +102,7 @@ const ContentBody = ({ nombre }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
+                    <InfoAlert/>
                     <div className="plan-info">
                         <div className="tabs-container">
                             <button
