@@ -1,13 +1,16 @@
-import instagram from '../assets/instagram.png'; // Subir un nivel si es necesario
-import facebook from '../assets/facebook.png';
-import youtube from '../assets/youtube.png';
-import tiktok from '../assets/tiktok.png';
+import { useTranslation } from "react-i18next";
+import instagram from "../assets/instagram.png";
+import facebook from "../assets/facebook.png";
+import youtube from "../assets/youtube.png";
+import tiktok from "../assets/tiktok.png";
 
 function Footer() {
+  const { t } = useTranslation(); 
+
   return (
     <div className="footer">
       <div className="Contacts">
-        <h2>Contactos</h2>
+        <h2>{t("contacts")}</h2> 
         <div className="telefonos">
           <p>809-000-9988</p>
           <p>809-000-9988</p>
@@ -18,7 +21,7 @@ function Footer() {
         </div>
       </div>
       <div className="Social-media">
-        <h3>Recarga-Ya</h3>
+        <h3>{t("recarga_ya")}</h3>
         <div className="social-icon">
           <img className="social-media-icon" src={instagram} alt="Instagram" />
           <img className="social-media-icon" src={facebook} alt="Facebook" />
@@ -27,7 +30,7 @@ function Footer() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Footer;

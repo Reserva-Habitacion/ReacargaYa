@@ -8,22 +8,33 @@ import './Components/Footer.css'
 import './Components/CardsGrid.css'
 import './Components/Content-body.css'
 import './Components/plan/style.css'
+import './i18n';
 import HeaderNav from './Components/Header-nav'
 import CardsGrid from './Components/CardsGrid'
 import ContentBody from './Components/Content-body'
 import CardGrid from './Components/CardsGrid'
-import { useState } from 'react'
+import { useState,useEffect  } from 'react'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 import DepositarBilletes from './Components/Depositar-billetes'
 import { Routes, Route,useLocation } from "react-router-dom";
 import Confirmation from './Components/confirm/confirmation'
-
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
   const [selectedCard, setSelectedCard] = useState(null);
   const location = useLocation();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    } else {
+      i18n.changeLanguage("es"); 
+    }
+  }, [i18n]);
   
   const hideHeader = location.pathname === "/confirmacion" || location.pathname === "/ingresar-numero"|| location.pathname === "/billetes";
 

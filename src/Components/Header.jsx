@@ -1,11 +1,16 @@
 import countryData from "../data/countryData";
 import HeaderNav from "./Header-nav";
 import logo from '../assets/logo.png';
+import { useTranslation } from "react-i18next";
 
 function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
 
-  // console.log(selectedCard);
+  const { t, i18n } = useTranslation();
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng);
+  };
   return (
     <>
       {selectedCard === null ? (
@@ -14,7 +19,7 @@ function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="action-items">
-            <h3>{selectedCard ? `Seleccionaste: ${selectedCard}` : "Elige tu país!"}</h3>
+          <h3>{selectedCard ? `${t("selected_card")} ${selectedCard}` : t("select_country")}</h3>
             <form>
               <img src={countryData[selectedCountry].flag} alt="Bandera" />
               <select
@@ -30,10 +35,10 @@ function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
                 ))}
               </select>
             </form>
-            <select name="language" id="">
-              <option>Español</option>
-              <option>English</option>
-              <option>Creole</option>
+            <select onChange={(e) => changeLanguage(e.target.value)} value={i18n.language}>
+              <option value="es">Español</option>
+              <option value="en">English</option>
+              <option value="ht">Creole</option>
             </select>
           </div>
         </div>

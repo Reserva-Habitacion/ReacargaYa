@@ -4,8 +4,10 @@ import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
 import IcoDelete from "../assets/icoDelete";
+import { useTranslation } from "react-i18next";
 
 const ContentBody = ({ nombre }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -66,8 +68,8 @@ const ContentBody = ({ nombre }) => {
                 <div className="left-case-info">
                     <div className="screen">
                         <div className="title">
-                            <h1>Número telefónico {nombre}</h1>
-                            <span>Ingrese su número telefónico</span>
+                            <h1>{t("phone_number")} {nombre}</h1>
+                            <span>{t("enter_phone")}</span>
                         </div>
                         <div className="input-number">
                             <input
@@ -82,7 +84,7 @@ const ContentBody = ({ nombre }) => {
                     </div>
                     <div className="keyboard">
                         <div className="keyboard-grid">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0, "BorrarTodo"].map((num, index) => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, t("delete"), 0, "BorrarTodo"].map((num, index) => (
                                 <button
                                     key={index}
                                     className={`grid-buttom ${num === "Borrar" ? "borrar" : ""}`}
@@ -107,13 +109,13 @@ const ContentBody = ({ nombre }) => {
                                 className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
                                 onClick={() => setActiveTab("planes")}
                             >
-                                Planes
+                                {t("plans")}
                             </button>
                             <button
                                 className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
                                 onClick={() => setActiveTab("recargas")}
                             >
-                                Recargas
+                                {t("recharges")}
                             </button>
                         </div>
 
@@ -146,7 +148,7 @@ const ContentBody = ({ nombre }) => {
                         color: isPhoneComplete && selectedOption ? "white" : "#999999"
                     }}
                 >
-                    <h1>Realizar pago</h1>
+                    <h1>{t('make_payment')}</h1>
                 </button>
                 {showDepositar && (
                     <DepositarBilletes

@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
+import { useTranslation } from "react-i18next"; 
 
 export default function Confirmation() {
     const { width, height } = useWindowSize();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -26,10 +28,10 @@ export default function Confirmation() {
                     </h2>
                 </div>
 
-                <span>Gracias por utilizar</span>
+                <span>{t("thank_you")}</span>
                 <img src="../src/assets/logo.png" alt="Logo" />
 
-                <h2>Espere su recibo</h2>
+                <h2>{t("wait_receipt")}</h2>
             </div>
         </div>
     );
