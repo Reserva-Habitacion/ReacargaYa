@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
 import IcoDelete from "../assets/icoDelete";
 import { useTranslation } from "react-i18next";
+import InfoAlert from "../assets/InfoAlert";
 
 const ContentBody = ({ nombre }) => {
     const { t } = useTranslation();
@@ -103,6 +104,7 @@ const ContentBody = ({ nombre }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
+                    <InfoAlert/>
                     <div className="plan-info">
                         <div className="tabs-container">
                             <button
