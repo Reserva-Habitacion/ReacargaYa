@@ -1,6 +1,7 @@
 import IcoBack from "../assets/ico-back"
 import InputLanguage from "./Input-language"
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function HeaderNav({ name }) {
   const navigate = useNavigate();

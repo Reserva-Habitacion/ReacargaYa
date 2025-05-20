@@ -4,10 +4,12 @@ import HeaderNav from "./Header-nav";
 import logo from '../assets/logo.png';
 import api from "../api/api";
 import flagMap from "../data/flagMap";
+import { useTranslation } from "react-i18next";
 
 function Header({ selectedCard, onCountryChange }) {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
+    const { t, i18n } = useTranslation();
 
   useEffect(() => {
     api.get('/Country')
