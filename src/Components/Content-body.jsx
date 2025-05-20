@@ -30,12 +30,7 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
     };
 
     const handleClick = () => {
-        // console.log("Número de teléfono:", phoneNumber);
-        // console.log("Opción seleccionada:", selectedOption);
-        // console.log("Nombre de la opción:", nameOption);
-        // console.log("Precio de la opción:", priceOption);
-
-        setShowDepositar(true);  // Establecer showDepositar a true
+        setShowDepositar(true);  
         navigate("/billetes",{
             state: { phoneNumber: phoneNumber, selectedOption: selectedOption, nameOption: nameOption, priceOption: priceOption }
         });
@@ -75,8 +70,8 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
                 <div className="left-case-info">
                     <div className="screen">
                         <div className="title">
-                            <h1>Número telefónico </h1>
-                            <span>Ingrese su número telefónico</span>
+                            <h1>{t("Número telefónico")}</h1>
+                            <span>{t("Ingrese su número telefónico")}</span>
                         </div>
                         <div className="input-number">
                             <input
@@ -110,8 +105,8 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-                    <InfoAlert/>
-                    <div className="plan-info">
+                    {/* <InfoAlert/> */}
+                    <div className="">
                         <div className="tabs-container">
                             <button
                                 className={`tab-button ${activeTab === "planes" ? "active" : ""}`}

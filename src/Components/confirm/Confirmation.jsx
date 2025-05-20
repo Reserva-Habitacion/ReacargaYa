@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'react-use'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export default function Confirmation() {
 
+      const { t } = useTranslation();
     const { width, height } = useWindowSize();
     const navigate = useNavigate();
     useEffect(() => {

@@ -25,6 +25,8 @@ const resources = {
             "amount": "Amount",
             "thank_you": "Thank you for using",
             "wait_receipt": "Wait for your receipt",
+            "Número telefónico": "Phone Number",
+            "Ingrese su número telefónico": "Enter your phone number",
         },
     },
     es: {
@@ -50,6 +52,8 @@ const resources = {
             "amount": "Monto",
             "thank_you": "Gracias por utilizar",
             "wait_receipt": "Espere su recibo",
+            "Número telefónico": "Número telefónico",
+            "Ingrese su número telefónico": "Ingrese su número telefónico",
         },
     },
     ht: {
@@ -74,6 +78,8 @@ const resources = {
             "amount": "Montan",
             "thank_you": "Mèsi paske ou itilize",
             "wait_receipt": "Tann resi ou",
+            "Número telefónico": "Nimewo telefòn",
+            "Ingrese su número telefónico": "Antre nimewo telefòn ou",
         },
     },
 };
