@@ -1,10 +1,33 @@
 import countryData from "../data/countryData";
+import { useEffect, useState } from "react";
 import HeaderNav from "./Header-nav";
 import logo from '../assets/logo.png';
+import api from "../api/api";
+import flagMap from "../data/flagMap";
 
-function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
+function Header({ selectedCard, onCountryChange }) {
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
 
-  console.log(selectedCard);
+  useEffect(() => {
+    api.get('/Country')
+      .then((res) => {
+        console.log("Países cargados:", res.data[0].CountryCode);
+        setCountries(res.data);
+        const firstCountry = res.data[0].CountryCode;
+        setSelectedCountry(firstCountry);
+        onCountryChange(firstCountry); // Notificar al padre
+      })
+      .catch((err) => {
+        console.error("Error al cargar los países:", err);
+      });
+  }, []);
+
+  const handleChange = (e) => {
+    const country = e.target.value;
+    setSelectedCountry(country);
+    onCountryChange(country); // Notificar al padre cuando cambia
+  };
 
   return (
     <>
@@ -16,16 +39,23 @@ function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
           <div className="action-items">
             <h3>{selectedCard ? `Seleccionaste: ${selectedCard}` : "Elige tu país!"}</h3>
             <form>
-              <img src={countryData[selectedCountry].flag} alt="Bandera" />
+              {flagMap[selectedCountry] && (
+                <img
+                  src={flagMap[selectedCountry]}
+                  alt={`Bandera de ${selectedCountry}`}
+                  style={{ width: "30px", marginRight: "10px" }}
+                />
+              )}
               <select
                 className="country"
                 name="country"
                 value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
+                onChange={handleChange}
               >
-                {Object.keys(countryData).map((country) => (
-                  <option key={country} value={country}>
-                    {country}
+                <option value=''>-- Selecciona un país --</option>
+                {countries.map((country) => (
+                  <option key={country.CountryCode} value={country.CountryCode}>
+                    {country.Country}
                   </option>
                 ))}
               </select>
@@ -37,9 +67,8 @@ function Header({ selectedCountry, setSelectedCountry, selectedCard }) {
             </select>
           </div>
         </div>
-
       ) : (
-        <HeaderNav />
+        <HeaderNav name={selectedCard} />
       )}
     </>
   );

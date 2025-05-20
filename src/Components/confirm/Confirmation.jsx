@@ -1,9 +1,22 @@
 // import React from 'react'
+import { useEffect } from 'react';
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'react-use'
+import { useNavigate } from 'react-router-dom';
 
 export default function Confirmation() {
+
     const { width, height } = useWindowSize();
+    const navigate = useNavigate();
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/');
+      window.location.reload(); 
+    }, 10000); 
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
     return (
         <div className="body-grid">
             <Confetti

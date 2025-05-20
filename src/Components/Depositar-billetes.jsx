@@ -1,7 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const DepositarBilletes = () => {
+const DepositarBilletes = ({  }) => {
+
+    //                     selectedOption={selectedOption}
+    //                     nameOption={nameOption}
+    //                     priceOption={priceOption}
+    //                     setPhoneNumber={phoneNumber}
     const location = useLocation();
     const navigate = useNavigate();
     const [total, setTotal] = useState(0);

@@ -2,7 +2,7 @@ import IcoBack from "../assets/ico-back"
 import InputLanguage from "./Input-language"
 import { useNavigate } from "react-router-dom";
 
-function HeaderNav() {
+function HeaderNav({ name }) {
   const navigate = useNavigate();
   // console.log("🚀 ~ HeaderNav ~ navigate:", navigate)
   
@@ -13,7 +13,7 @@ function HeaderNav() {
           <IcoBack />
       </div>
       <div className="tittle">
-        <h2>Servicios Claro</h2>
+        <h2>Servicios {name}</h2>
       </div>
 
       <div className="right-div">

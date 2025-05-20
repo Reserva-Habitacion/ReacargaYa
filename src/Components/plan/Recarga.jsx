@@ -1,40 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
+import api from "../../api/api";
 
-
-export default function Recarga({ onSelect,price }) {
+export default function Recarga({ onSelect, price, selectedCountry, selectedCard }) {
+  const [recargas, setRecargas] = useState([]);
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
 
-  const handleSelect = (itemId,price) => {
+  useEffect(() => {
+    api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}`)
+      .then((res) => {
+        const precios = res.data[0]?.Recarga || [];
+        const formateado = precios.map((price, index) => ({
+          id: index + 1,
+          price,
+        }));
+        setRecargas(formateado);
+      })
+      .catch((err) => {
+        console.error("Error al cargar las recargas:", err);
+      });
+  }, [selectedCountry]);
+
+  const handleSelect = (itemId, price) => {
     setSelected(itemId);
-    onSelect(itemId,price);
+    onSelect(itemId, price);
   };
 
-  const limit = 6; 
-  const data = [
-    { id: 1, price: 50 },
-    { id: 2, price: 100 },
-    { id: 3, price: 150 },
-    { id: 4, price: 200 },
-    { id: 5, price: 150 },
-    { id: 6, price: 200 },
-    { id: 7, price: 250 },
-    { id: 8, price: 300 },
-    { id: 9, price: 350 },
-    { id: 10, price: 400 },
-  ];
-
-  // Calcular el offset y obtener los datos de la página actual
-  const totalPages = Math.ceil(data.length / limit);
+  const limit = 6;
+  const totalPages = Math.ceil(recargas.length / limit);
   const offset = (page - 1) * limit;
-  const paginatedData = data.slice(offset, offset + limit);
+  const paginatedData = recargas.slice(offset, offset + limit);
 
   return (
     <div className="container">
       <h3 className="info-right-title">Elija una opción</h3>
 
-      {/* Grid de tarjetas */}
       <div className="grid">
         {paginatedData.map((item) => (
           <button
@@ -47,7 +48,6 @@ export default function Recarga({ onSelect,price }) {
         ))}
       </div>
 
-      {/* Paginación */}
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );

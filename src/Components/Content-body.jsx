@@ -4,7 +4,8 @@ import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
 
-const ContentBody = ({ nombre }) => {
+const ContentBody = ({ selectedCountry,selectedCard }) => {
+  
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -25,6 +26,11 @@ const ContentBody = ({ nombre }) => {
     };
 
     const handleClick = () => {
+        // console.log("Número de teléfono:", phoneNumber);
+        // console.log("Opción seleccionada:", selectedOption);
+        // console.log("Nombre de la opción:", nameOption);
+        // console.log("Precio de la opción:", priceOption);
+
         setShowDepositar(true);  // Establecer showDepositar a true
         navigate("/billetes",{
             state: { phoneNumber: phoneNumber, selectedOption: selectedOption, nameOption: nameOption, priceOption: priceOption }
@@ -65,7 +71,7 @@ const ContentBody = ({ nombre }) => {
                 <div className="left-case-info">
                     <div className="screen">
                         <div className="title">
-                            <h1>Número telefónico {nombre}</h1>
+                            <h1>Número telefónico </h1>
                             <span>Ingrese su número telefónico</span>
                         </div>
                         <div className="input-number">
@@ -135,7 +141,7 @@ const ContentBody = ({ nombre }) => {
                                 <Recarga onSelect={(option, price) => {
                                     setSelectedOption(option);
                                     setPriceOption(price);
-                                }} />
+                                }} selectedCountry={selectedCountry} selectedCard={selectedCard} />
                             )}
                         </div>
                     </div>
@@ -167,5 +173,6 @@ const ContentBody = ({ nombre }) => {
         </div>
     );
 };
+
 
 export default ContentBody;

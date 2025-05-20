@@ -23,16 +23,20 @@ import Confirmation from './Components/confirm/confirmation'
 
 
 function App() {
-  const [selectedCountry, setSelectedCountry] = useState("República Dominicana");
+ const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+ 
   const location = useLocation();
   return (
     <>
       {/* <HeaderNav /> */}
-      <Header selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} selectedCard={selectedCard} />
+      <Header
+        selectedCard={selectedCard}
+        onCountryChange={setSelectedCountry}
+      />
       <Routes>
         <Route path="/" element={<CardsGrid selectedCountry={selectedCountry} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />} />
-        <Route path="/ingresar-numero" element={<ContentBody />} />
+        <Route path="/ingresar-numero" element={<ContentBody selectedCountry={selectedCountry} selectedCard={selectedCard} />} />
         <Route path="/billetes" element={<DepositarBilletes />} />
         <Route path="/confirmacion" element={<Confirmation />} />
       </Routes>
