@@ -6,10 +6,12 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   server: {
+      // allowedHosts: ['allow-localhost'],
     proxy: {
       '/api': {
-        target: 'http://167.114.9.194:8012',
+        target: 'https://8a13-186-6-229-250.ngrok-free.app',
         changeOrigin: true,
+        secure: false,
         rewrite: path => path.replace(/^\/api/, ''),
       },
     },

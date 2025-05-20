@@ -9,6 +9,9 @@ import natcom from '../assets/natcom.png';
 import movilnet from '../assets/movilnet.png';
 import digitelNuevo from '../assets/digitelNuevo.jpg';
 import cantvLogo from '../assets/cantv_logo.png';
+import viva from '../assets/viva.png';
+import edenorte from '../assets/edenorte.png';
+import edesur from '../assets/edesur.png';
 
 const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
   // console.log("🚀 ~ CardGrid ~ selectedCountry1:", selectedCountry)
@@ -23,14 +26,14 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
     'CLARO': 'https://upload.wikimedia.org/wikipedia/commons/9/99/Logo_de_Claro.svg',
     'ORANGE': 'https://logos-world.net/wp-content/uploads/2021/09/Orange-Emblem.png',
     'TRICOM': 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Altice_logo_%28new%29.png',
-    'VIVA': 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Viva_logo.png',
+    'VIVA': viva,
     'DIGICEL': digicel,
     'NATCOM': natcom,
     'MOVILNET': movilnet,
     'DIGITEL': digitelNuevo,
     'CANTV': cantvLogo,
-    'EDENORTE': 'https://edenorte.com.do/assets/img/logo.svg',
-    'EDESUR': 'https://www.edesur.com.do/themes/edesur/logo.svg',
+    'EDENORTE': edenorte,
+    'EDESUR': edesur,
   };
 
   const handleCardClick = (nombre) => {
