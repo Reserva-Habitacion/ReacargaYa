@@ -29,6 +29,10 @@ function Header({ selectedCard, onCountryChange }) {
     onCountryChange(country); // Notificar al padre cuando cambia
   };
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng);
+  };
   return (
     <>
       {selectedCard === null ? (
@@ -37,7 +41,7 @@ function Header({ selectedCard, onCountryChange }) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="action-items">
-            <h3>{selectedCard ? `Seleccionaste: ${selectedCard}` : "Elige tu país!"}</h3>
+          <h3>{selectedCard ? `${t("selected_card")} ${selectedCard}` : t("select_country")}</h3>
             <form>
               {flagMap[selectedCountry] && (
                 <img
@@ -60,10 +64,10 @@ function Header({ selectedCard, onCountryChange }) {
                 ))}
               </select>
             </form>
-            <select name="language" id="">
-              <option>Español</option>
-              <option>English</option>
-              <option>Creole</option>
+            <select onChange={(e) => changeLanguage(e.target.value)} value={i18n.language}>
+              <option value="es">Español</option>
+              <option value="en">English</option>
+              <option value="ht">Creole</option>
             </select>
           </div>
         </div>

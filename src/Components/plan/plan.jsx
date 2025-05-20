@@ -3,7 +3,6 @@ import LeftRow from "../../assets/Left-row";
 import RightRow from "../../assets/Right-row";
 import Pagination from "./Pagination";
 
-
 const plans = [
     { id: 1, name: "Libre-Plus 1 Día", price: 65 },
     { id: 2, name: "Libre-Plus 3 Días", price: 120 },
@@ -16,19 +15,18 @@ const plans = [
 
 const limit = 6;
 
-export default function Plan({ onSelect,name,price }) {
+export default function Plan({ onSelect }) {
     const [page, setPage] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState(null);
 
-    const handleSelect = (planId,name,price) => {
-        setSelectedPlan(planId);
-        onSelect(planId,name,price); 
-      };
+    const handleSelect = (plan) => {
+        setSelectedPlan(plan.id); // Solo un checkbox seleccionado
+        onSelect(plan.id, plan.name, plan.price);
+    };
 
     const offset = (page - 1) * limit;
     const totalPages = Math.ceil(plans.length / limit);
 
-    
     return (
         <div className="container">
             <h3 className="info-right-title">Elija una opción</h3>
@@ -37,19 +35,20 @@ export default function Plan({ onSelect,name,price }) {
                 {plans.slice(offset, offset + limit).map((plan) => (
                     <label key={plan.id} className={`item ${selectedPlan === plan.id ? "selected" : ""}`}>
                         <input
-                            type="radio"
+                            type="checkbox"
                             name="plan"
-                            className="radio"
+                            className="checkbox"
                             checked={selectedPlan === plan.id}
-                            onChange={() => handleSelect(plan.id,plan.name,plan.price)}
+                            onChange={() => handleSelect(plan)}
                         />
                         <span className="text">{plan.name}</span>
                         <span className="price">${plan.price}</span>
                     </label>
                 ))}
             </div>
-                  {/* Pagination aqui */}
-                  <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+
+            {/* Paginación aquí */}
+            <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
         </div>
     );
 }

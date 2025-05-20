@@ -3,6 +3,9 @@ import Plan from "./plan/plan";
 import Recarga from "./plan/Recarga";
 import { useNavigate } from "react-router-dom";
 import DepositarBilletes from "./Depositar-billetes";
+import IcoDelete from "../assets/icoDelete";
+import { useTranslation } from "react-i18next";
+import InfoAlert from "../assets/InfoAlert";
 
 const ContentBody = ({ selectedCountry,selectedCard }) => {
   
@@ -87,22 +90,14 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
                     </div>
                     <div className="keyboard">
                         <div className="keyboard-grid">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "Borrar", 0, "BorrarTodo"].map((num, index) => (
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, t("delete"), 0, "BorrarTodo"].map((num, index) => (
                                 <button
                                     key={index}
                                     className={`grid-buttom ${num === "Borrar" ? "borrar" : ""}`}
                                     onClick={() => handleButtonClick(num)}
                                 >
                                     {num === "BorrarTodo" ? (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            width="40"
-                                            height="40"
-                                            fill="currentColor"
-                                        >
-                                            <path d="M3 12l6-6v3h8v6h-8v3l-6-6zm14-6h4v12h-4V6z" />
-                                        </svg>
+                                      <IcoDelete/>
                                     ) : (
                                         <h1>{num}</h1>
                                     )}
@@ -114,19 +109,20 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
+                    <InfoAlert/>
                     <div className="plan-info">
                         <div className="tabs-container">
                             <button
                                 className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
                                 onClick={() => setActiveTab("planes")}
                             >
-                                Planes
+                                {t("plans")}
                             </button>
                             <button
                                 className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
                                 onClick={() => setActiveTab("recargas")}
                             >
-                                Recargas
+                                {t("recharges")}
                             </button>
                         </div>
 
@@ -159,7 +155,7 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
                         color: isPhoneComplete && selectedOption ? "white" : "#999999"
                     }}
                 >
-                    <h1>Realizar pago</h1>
+                    <h1>{t('make_payment')}</h1>
                 </button>
                 {showDepositar && (
                     <DepositarBilletes

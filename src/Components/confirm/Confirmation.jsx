@@ -19,27 +19,19 @@ export default function Confirmation() {
 
     return (
         <div className="body-grid">
-            <Confetti
-                width={width}
-                height={height}
-            />
+            <Confetti width={width} height={height} />
             <div className="pay-page">
                 <div className="info-transacion">
-                 
                     <h2 className="servicio-adquirido">
-                      
-                        <span className="resaltado">  </span>
+                        <span className="resaltado"></span>
                     </h2>
                 </div>
 
-                <span>Gracia por Utilizar</span>
-                <img src="../src/assets/logo.png" alt="Animación de billete" />
+                <span>{t("thank_you")}</span>
+                <img src="../src/assets/logo.png" alt="Logo" />
 
-            
-                <h2>Espere su Recibo</h2>
-
-
+                <h2>{t("wait_receipt")}</h2>
             </div>
         </div>
-    )
+    );
 }
