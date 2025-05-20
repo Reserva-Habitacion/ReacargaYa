@@ -9,6 +9,7 @@ import InfoAlert from "../assets/InfoAlert";
 
 const ContentBody = ({ selectedCountry,selectedCard }) => {
   
+      const { t } = useTranslation();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
