@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
 import api from "../../api/api";
 
-export default function Recarga({ onSelect, price, selectedCountry, selectedCard }) {
+export default function Recarga({ onSelect, price, selectedCountry, selectedCard,phoneNumber }) {
 
   const [recargas, setRecargas] = useState([]);
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}`)
+    api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}/${phoneNumber}`)
       .then((res) => {
-        const precios = res.data[0]?.Recarga || [];
+        console.log("Recargas cargadas:", phoneNumber);
+        const precios = res.data.Data[0]?.Recarga || [];
   
         const formateado = precios.map((price, index) => ({
           id: index + 1,

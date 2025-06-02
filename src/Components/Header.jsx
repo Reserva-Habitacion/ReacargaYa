@@ -14,11 +14,11 @@ function Header({ selectedCard, onCountryChange }) {
   useEffect(() => {
     api.get('/Country')
       .then((res) => {
-        console.log("Países cargados:", res.data[0].CountryCode);
-        setCountries(res.data);
-        const firstCountry = res.data[0].CountryCode;
+        // console.log("Países cargados:", res.data.Data[0]);
+        setCountries(res.data.Data);
+        const firstCountry = res.data.Data[0].CountryCode;
         setSelectedCountry(firstCountry);
-        onCountryChange(firstCountry); // Notificar al padre
+        onCountryChange(firstCountry); 
       })
       .catch((err) => {
         console.error("Error al cargar los países:", err);

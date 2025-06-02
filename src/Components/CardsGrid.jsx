@@ -12,6 +12,8 @@ import cantvLogo from '../assets/cantv_logo.png';
 import viva from '../assets/viva.png';
 import edenorte from '../assets/edenorte.png';
 import edesur from '../assets/edesur.png';
+import domLoteria from '../assets/images.png';
+import entreApps from '../assets/unnamed.jpg'; // Asegúrate de que esta imagen exista
 
 const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
   // console.log("🚀 ~ CardGrid ~ selectedCountry1:", selectedCountry)
@@ -34,10 +36,12 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
     'CANTV': cantvLogo,
     'EDENORTE': edenorte,
     'EDESUR': edesur,
+    'DOMLOTERIA': domLoteria,
+    'ENTREGAPP': entreApps,
   };
 
   const handleCardClick = (nombre) => {
-    console.log('Nombre de la tarjeta:', nombre);
+    // console.log('Nombre de la tarjeta:', nombre);
     setSelectedCard(nombre);
     navigate("/ingresar-numero");
   };
@@ -46,7 +50,7 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
     api.get(`/ProductByCountry/${selectedCountry}`)
       .then((response) => {
         // console.log('Productos cargados:', response.data);
-        setDatos(response.data);
+        setDatos(response.data.Data);
         setCargando(false);
       })
       .catch((err) => {

@@ -6,10 +6,11 @@ import DepositarBilletes from "./Depositar-billetes";
 import IcoDelete from "../assets/icoDelete";
 import { useTranslation } from "react-i18next";
 import InfoAlert from "../assets/InfoAlert";
+import api from "../api/api";
 
-const ContentBody = ({ selectedCountry,selectedCard }) => {
-  
-      const { t } = useTranslation();
+const ContentBody = ({ selectedCountry, selectedCard }) => {
+
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("planes");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -18,6 +19,9 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
     const [nameOption, setNameOption] = useState(null);
     const [priceOption, setPriceOption] = useState(null);
     const [showDepositar, setShowDepositar] = useState(false);
+    const [option, setOption] = useState(false);
+
+
 
     const isPhoneComplete = phoneNumber.replace(/\D/g, "").length === 10;
 
@@ -30,8 +34,8 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
     };
 
     const handleClick = () => {
-        setShowDepositar(true);  
-        navigate("/billetes",{
+        setShowDepositar(true);
+        navigate("/billetes", {
             state: { phoneNumber: phoneNumber, selectedOption: selectedOption, nameOption: nameOption, priceOption: priceOption }
         });
     };
@@ -49,15 +53,34 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
         });
     };
 
+    const handleChange = (e) => {
+        const input = e.target.value.replace(/\D/g, ''); // Solo números
+        if (input.length <= 10) {
+            setPhoneNumber(input);
+        }
+    };
+
     useEffect(() => {
         const fetchPlanInfo = async () => {
             const cleanNumber = phoneNumber.replace(/\D/g, "");
+            console.log("Número telefónico limpio:", cleanNumber);
             if (cleanNumber.length === 10) {
-                try {
-                    setPlanInfo({ plan: "Plan 1", details: "Detalles del plan" });
-                } catch (error) {
-                    console.error("Error fetching plan info:", error);
-                }
+                api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}/${cleanNumber}`)
+                    .then((res) => {
+                        console.log("Recargas cargadas:", res.data.Data[0]?.Recarga);
+                        const precios = res.data.Data[0]?.Recarga || [];
+
+                        // const formateado = precios.map((price, index) => ({
+                        //     id: index + 1,
+                        //     price,
+                        // }));
+                        // setRecargas(formateado);
+                    })
+                    .catch((err) => {
+                        console.error("Error al cargar las recargas:", err);
+                    });
+            } else {
+                setOption(false);
             }
         };
 
@@ -79,6 +102,7 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
                                 name="PhoneNumber"
                                 placeholder="(000)-000-0000"
                                 value={phoneNumber}
+                                onChange={handleChange}
                                 style={{ color: "black" }}
                                 readOnly
                             />
@@ -93,7 +117,7 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
                                     onClick={() => handleButtonClick(num)}
                                 >
                                     {num === "BorrarTodo" ? (
-                                      <IcoDelete/>
+                                        <IcoDelete />
                                     ) : (
                                         <h1>{num}</h1>
                                     )}
@@ -105,38 +129,50 @@ const ContentBody = ({ selectedCountry,selectedCard }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-                    {/* <InfoAlert/> */}
-                    <div className="">
-                        <div className="tabs-container">
-                            <button
-                                className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
-                                onClick={() => setActiveTab("planes")}
-                            >
-                                {t("plans")}
-                            </button>
-                            <button
-                                className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
-                                onClick={() => setActiveTab("recargas")}
-                            >
-                                {t("recharges")}
-                            </button>
-                        </div>
 
-                        <div className="tab-content">
-                            {activeTab === "planes" ? (
-                                <Plan onSelect={(option, name, price) => {
-                                    setSelectedOption(option);
-                                    setNameOption(name);
-                                    setPriceOption(price);
-                                }} />
-                            ) : (
-                                <Recarga onSelect={(option, price) => {
-                                    setSelectedOption(option);
-                                    setPriceOption(price);
-                                }} selectedCountry={selectedCountry} selectedCard={selectedCard} />
-                            )}
+                    {!option ? (
+                        <InfoAlert />
+
+                    ) : (
+                        <div className="">
+                            <div className="tabs-container">
+                                <button
+                                    className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
+                                    onClick={() => setActiveTab("planes")}
+                                >
+                                    {t("data plans")}
+                                </button>
+                                <button
+                                    className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
+                                    onClick={() => setActiveTab("recargas")}
+                                >
+                                    {t("minute recharges")}
+                                </button>
+                            </div>
+
+                            <div className="tab-content">
+                                {activeTab === "planes" ? (
+                                    <Plan onSelect={(option, name, price) => {
+                                        setSelectedOption(option);
+                                        setNameOption(name);
+                                        setPriceOption(price);
+                                    }} />
+                                ) : (
+                                    <Recarga onSelect={(option, price) => {
+                                        setSelectedOption(option);
+                                        setPriceOption(price);
+                                        setPhoneNumber(phoneNumber);
+                                    }} selectedCountry={selectedCountry} selectedCard={selectedCard} phoneNumber={phoneNumber} />
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+
+
+
+
+
                 </div>
             </div>
 
