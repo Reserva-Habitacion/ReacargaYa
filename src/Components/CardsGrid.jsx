@@ -23,23 +23,6 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
-  const imageMap = {
-    'ALTICE': 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Altice_logo_%28new%29.png',
-    'CLARO': 'https://upload.wikimedia.org/wikipedia/commons/9/99/Logo_de_Claro.svg',
-    'ORANGE': 'https://logos-world.net/wp-content/uploads/2021/09/Orange-Emblem.png',
-    'TRICOM': 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Altice_logo_%28new%29.png',
-    'VIVA': viva,
-    'DIGICEL': digicel,
-    'NATCOM': natcom,
-    'MOVILNET': movilnet,
-    'DIGITEL': digitelNuevo,
-    'CANTV': cantvLogo,
-    'EDENORTE': edenorte,
-    'EDESUR': edesur,
-    'DOMLOTERIA': domLoteria,
-    'ENTREGAPP': entreApps,
-  };
-
   const handleCardClick = (nombre) => {
     // console.log('Nombre de la tarjeta:', nombre);
     setSelectedCard(nombre);
@@ -49,7 +32,7 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
   useEffect(() => {
     api.get(`/ProductByCountry/${selectedCountry}`)
       .then((response) => {
-        // console.log('Productos cargados:', response.data);
+         console.log('Productos cargados:', response.data.Data);
         setDatos(response.data.Data);
         setCargando(false);
       })
@@ -65,12 +48,10 @@ const CardGrid = ({ selectedCountry, selectedCard, setSelectedCard }) => {
       <div className="cards-grid">
         {datos.map((producto, index) => {
           const nombre = producto.OperatorName.toUpperCase();
-          const imagen = imageMap[nombre] || 'https://via.placeholder.com/150';
-
           return (
             <Card
               key={`${nombre}-${index}`}
-              imagen={imagen}
+              imagen={`${import.meta.env.VITE_API_BASE_URL}/image/${producto.Logo}`}
               description={producto.Description}
               onClick={() => handleCardClick(nombre)}
             />

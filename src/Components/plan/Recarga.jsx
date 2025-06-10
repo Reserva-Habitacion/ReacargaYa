@@ -2,28 +2,28 @@ import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
 import api from "../../api/api";
 
-export default function Recarga({ onSelect, price, selectedCountry, selectedCard,phoneNumber }) {
-
+export default function Recarga({ onSelect,planRecarga }) {
+console.log("plan recarga =>",planRecarga);
   const [recargas, setRecargas] = useState([]);
   const [selected, setSelected] = useState(null);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}/${phoneNumber}`)
-      .then((res) => {
-        console.log("Recargas cargadas:", phoneNumber);
-        const precios = res.data.Data[0]?.Recarga || [];
+  // useEffect(() => {
+  //   api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}/${phoneNumber}`)
+  //     .then((res) => {
+  //       console.log("Recargas cargadas:", phoneNumber);
+  //       const precios = res.data.Data[0]?.Recarga || [];
   
-        const formateado = precios.map((price, index) => ({
-          id: index + 1,
-          price,
-        }));
-        setRecargas(formateado);
-      })
-      .catch((err) => {
-        console.error("Error al cargar las recargas:", err);
-      });
-  }, [selectedCountry]);
+  //       const formateado = precios.map((price, index) => ({
+  //         id: index + 1,
+  //         price,
+  //       }));
+  //       setRecargas(formateado);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error al cargar las recargas:", err);
+  //     });
+  // }, [selectedCountry]);
 
   const handleSelect = (itemId, price) => {
     setSelected(itemId);
@@ -31,9 +31,9 @@ export default function Recarga({ onSelect, price, selectedCountry, selectedCard
   };
 
   const limit = 6;
-  const totalPages = Math.ceil(recargas.length / limit);
+  const totalPages = Math.ceil(planRecarga.length / limit);
   const offset = (page - 1) * limit;
-  const paginatedData = recargas.slice(offset, offset + limit);
+  const paginatedData = planRecarga.slice(offset, offset + limit);
 
   return (
     <div className="container">

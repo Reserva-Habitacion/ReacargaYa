@@ -7,12 +7,13 @@ import IcoDelete from "../assets/icoDelete";
 import { useTranslation } from "react-i18next";
 import InfoAlert from "../assets/InfoAlert";
 import api from "../api/api";
+import Swal from 'sweetalert2';
 
 const ContentBody = ({ selectedCountry, selectedCard }) => {
 
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("planes");
+    const [activeTab, setActiveTab] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [planInfo, setPlanInfo] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
@@ -20,6 +21,7 @@ const ContentBody = ({ selectedCountry, selectedCard }) => {
     const [priceOption, setPriceOption] = useState(null);
     const [showDepositar, setShowDepositar] = useState(false);
     const [option, setOption] = useState(false);
+    const [planData, SetPlanData] = useState([]);
 
 
 
@@ -63,13 +65,23 @@ const ContentBody = ({ selectedCountry, selectedCard }) => {
     useEffect(() => {
         const fetchPlanInfo = async () => {
             const cleanNumber = phoneNumber.replace(/\D/g, "");
-            console.log("Número telefónico limpio:", cleanNumber);
             if (cleanNumber.length === 10) {
-                api.get(`/PriceRechargePhone/${selectedCountry}/${selectedCard}/${cleanNumber}`)
+                api.get(`/ProductByOperator/${selectedCountry}/${selectedCard}/${cleanNumber}`)
                     .then((res) => {
-                        console.log("Recargas cargadas:", res.data.Data[0]?.Recarga);
-                        const precios = res.data.Data[0]?.Recarga || [];
+                        console.log("data=>", res.data.RespCode);
+                        if (res.data.RespCode != 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo obtener la información del plan. Intente nuevamente.',
+                        });
+                        setOption(false);
+                        return;
+                    }
 
+                        SetPlanData(res.data.Data[0]?.PlanDatos || []);
+                        const precios = res.data.Data[0]?.PlanRecarga || [];
+                        setOption(true)
                         // const formateado = precios.map((price, index) => ({
                         //     id: index + 1,
                         //     price,
@@ -129,51 +141,60 @@ const ContentBody = ({ selectedCountry, selectedCard }) => {
             </div>
             <div className="rigth-case">
                 <div className="option-case">
-
                     {!option ? (
                         <InfoAlert />
-
                     ) : (
-                        <div className="">
-                            <div className="tabs-container">
-                                <button
-                                    className={`tab-button ${activeTab === "planes" ? "active" : ""}`}
-                                    onClick={() => setActiveTab("planes")}
-                                >
-                                    {t("data plans")}
-                                </button>
-                                <button
-                                    className={`tab-button ${activeTab === "recargas" ? "active" : ""}`}
-                                    onClick={() => setActiveTab("recargas")}
-                                >
-                                    {t("minute recharges")}
-                                </button>
-                            </div>
+                        <div>
+                            {!activeTab && (
+                                <>
+                                    <h2 className="selection-title">Selecciona una opción para continuar</h2>
+                                    <div className="button-selection-vertical">
+                                        <button onClick={() => setActiveTab("planes")} className="big-button">
+                                            Planes de Datos
+                                        </button>
+                                        <button onClick={handleClick} className="big-button">
+                                            Recargas
+                                        </button>
+                                    </div>
+                                </>
+                            )}
 
-                            <div className="tab-content">
-                                {activeTab === "planes" ? (
-                                    <Plan onSelect={(option, name, price) => {
-                                        setSelectedOption(option);
-                                        setNameOption(name);
-                                        setPriceOption(price);
-                                    }} />
-                                ) : (
-                                    <Recarga onSelect={(option, price) => {
-                                        setSelectedOption(option);
-                                        setPriceOption(price);
-                                        setPhoneNumber(phoneNumber);
-                                    }} selectedCountry={selectedCountry} selectedCard={selectedCard} phoneNumber={phoneNumber} />
-                                )}
-                            </div>
+                            {activeTab === "planes" && (
+                                <>
+                                    <button onClick={() => setActiveTab(null)} className="back-button">
+                                        🔙 Volver
+                                    </button>
+                                    <Plan
+                                        onSelect={(option, name, price) => {
+                                            setSelectedOption(option);
+                                            setNameOption(name);
+                                            setPriceOption(price);
+                                        }}
+                                        pricePlan={planData}
+                                    />
+                                </>
+                            )}
+
+                            {activeTab === "recargas" && (
+                                <>
+                                    <button onClick={() => setActiveTab(null)} className="back-button">
+                                        🔙 Volver
+                                    </button>
+                                    {/* <Recarga
+                                        onSelect={(option, price) => {
+                                            setSelectedOption(option);
+                                            setPriceOption(price);
+                                        }}
+                                        planRecarga={planRecarga}
+                                    /> */}
+
+                                  
+                                </>
+                            )}
                         </div>
                     )}
-
-
-
-
-
-
                 </div>
+
             </div>
 
             <div className="action-buttom">
